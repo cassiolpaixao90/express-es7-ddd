@@ -29,9 +29,9 @@
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-prettier": "^3.0.1",
     "husky": "^1.2.1",
     "lint-staged": "^8.1.0",
     "nodemon": "^1.18.9",
@@ -40,10 +40,15 @@
     "smid": "^0.1.1"
   },
   "dependencies": {
+    "awilix": "^4.2.1",
     "awilix-express": "^2.1.1",
     "body-parser": "^1.18.3",
+    "bristol": "^0.4.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "express": "^4.16.4"
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "palin": "^2.2.0",
+    "yenv": "^2.1.0"
   }
 }
