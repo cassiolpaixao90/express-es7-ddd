@@ -10,5 +10,12 @@ module.exports = {
   },
   logging: {
     appenders: [{ type: 'console' }, { type: 'file', filename: logPath }]
+  },
+  postegres: {
+    username: 'postgres',
+    password: 'postgres',
+    database: 'postgres',
+    host: '127.0.0.1',
+    dialect: 'postgres'
   }
 };

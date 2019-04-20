@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const compress = require('compression');
 const { scopePerRequest, loadControllers } = require('awilix-express');
 
-const { logger } = require('../../core/utils');
-const { configureContainer } = require('../../core/helpers/container');
+const { logger, container } = require('../../lib');
+
 // const { notFoundHandler } = require('../middleware/not-found');
 // const { errorHandler } = require('../middleware/error-handler');
 // const { registerContext } = require('../middleware/register-context');
@@ -14,7 +14,7 @@ const { configureContainer } = require('../../core/helpers/container');
 exports.createServer = async () => {
   const app = express();
 
-  const container = (app.container = configureContainer());
+  // const container = (app.container = configureContainer());
 
   app
     // .use(errorHandler)
