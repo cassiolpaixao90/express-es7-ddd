@@ -14,6 +14,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
     "no-console": 0,
     "no-const-assign": "warn",
     "no-this-before-super": "warn",

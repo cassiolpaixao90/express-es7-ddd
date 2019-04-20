@@ -1,5 +1,8 @@
-const path = require('path')
-const logPath = path.join(__dirname, '../../logs/development.log')
+const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config({ path: path.resolve('.env.dev') });
+const logPath = path.join(__dirname, '../../logs/development.log');
 
 module.exports = {
   web: {
@@ -8,4 +11,4 @@ module.exports = {
   logging: {
     appenders: [{ type: 'console' }, { type: 'file', filename: logPath }]
   }
-}
+};

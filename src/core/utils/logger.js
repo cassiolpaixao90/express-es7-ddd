@@ -1,12 +1,12 @@
-import { Bristol } from 'bristol'
-import palin from 'palin'
-import { env } from './env'
+import { Bristol } from 'bristol';
+import palin from 'palin';
 
-export const logger = new Bristol()
+const bristol = new Bristol();
 
-/* istanbul ignore next */
-if (env.LOG_LEVEL !== 'off') {
-  logger.addTarget('console').withFormatter(palin, {
-    rootFolderName: 'express-es7-boilerplate' // Edit this to match your actual foldername
-  })
+if (process.env.APP_LOG_LEVEL !== 'off') {
+  bristol.addTarget('console').withFormatter(palin, {
+    rootFolderName: 'express-es7-boilerplate'
+  });
 }
+
+// exports.logger = logger;

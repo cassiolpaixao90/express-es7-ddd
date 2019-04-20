@@ -1,8 +1,8 @@
-const path = require('path')
-require('dotenv')
+const path = require('path');
+require('dotenv');
 
-const ENV = process.env.NODE_ENV || 'development'
-const envConfig = require(path.resolve('config', 'environments', ENV))
+const ENV = process.env.NODE_ENV || 'development';
+const envConfig = require(path.resolve('config', 'environments', ENV));
 
 const config = Object.assign(
   {
@@ -10,6 +10,6 @@ const config = Object.assign(
     env: ENV
   },
   envConfig
-)
+);
 
-export default config
+export default config;
