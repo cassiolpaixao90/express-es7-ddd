@@ -3,18 +3,15 @@ const { scopePerRequest } = require('awilix-express');
 
 const { env } = require('../lib');
 const bootstrap = require('../bootstrap');
-const {
-  CreateUser,
-  GetAllUsers,
-  GetUser,
-  UpdateUser,
-  DeleteUser
-} = require('./app/user');
+const { user } = require('../service');
+
+console.log('user', user);
 
 const UserSerializer = require('../interface/http/resources/user/UserSerializer');
 
 const server = require('../interface/http/server');
 const router = require('../interfaces/http/router');
+
 const loggerMiddleware = require('./interfaces/http/logging/loggerMiddleware');
 const errorHandler = require('./interfaces/http/errors/errorHandler');
 const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
@@ -63,11 +60,7 @@ container.register({
 
 // Operations
 container.register({
-  createUser: asClass(CreateUser),
-  getAllUsers: asClass(GetAllUsers),
-  getUser: asClass(GetUser),
-  updateUser: asClass(UpdateUser),
-  deleteUser: asClass(DeleteUser)
+  ...user
 });
 
 // Serializers
