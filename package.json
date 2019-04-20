@@ -3,6 +3,19 @@
   "version": "1.0.0",
   "license": "MIT",
   "author": "Cássio Paixão <cassiopaixaoti@gmail.com",
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=3.8"
+  },
+  "scripts": {
+    "start": "node dist/bin/www.js",
+    "build": "rimraf dist && cross-env NODE_ENV=production babel src -d dist -s",
+    "dev": "nodemon src/bin/www.js",
+    "test": "cross-env NODE_ENV=test jest",
+    "cover": "npm run test -- --coverage",
+    "lint": "eslint --fix src && prettier --write \"src/**/*.js\"",
+    "precommit": "lint-staged"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
@@ -18,11 +31,19 @@
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "husky": "^1.2.1",
     "lint-staged": "^8.1.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
     "rimraf": "^2.6.2",
     "smid": "^0.1.1"
+  },
+  "dependencies": {
+    "awilix-express": "^2.1.1",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.4"
   }
 }
