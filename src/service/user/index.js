@@ -7,9 +7,9 @@ const UpdateUser = require('./UpdateUser');
 const DeleteUser = require('./DeleteUser');
 
 module.exports = {
-  GetAllUsers: asClass(GetAllUsers),
-  CreateUser: asClass(CreateUser),
-  GetUser: asClass(GetUser),
-  UpdateUser: asClass(UpdateUser),
-  DeleteUser: asClass(DeleteUser)
+  GetAllUsers: asClass(GetAllUsers).scoped(),
+  CreateUser: asClass(CreateUser).scoped(),
+  GetUser: asClass(GetUser).scoped(),
+  UpdateUser: asClass(UpdateUser).scoped(),
+  DeleteUser: asClass(DeleteUser).scoped()
 };

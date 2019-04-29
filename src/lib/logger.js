@@ -9,4 +9,4 @@ if (process.env.APP_LOG_LEVEL !== 'off') {
   });
 }
 
-// exports.logger = logger;
+// exports.logging = logging;

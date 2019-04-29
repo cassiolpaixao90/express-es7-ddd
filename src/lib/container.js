@@ -1,25 +1,21 @@
 const { createContainer, asClass, asFunction, asValue } = require('awilix');
 const { scopePerRequest } = require('awilix-express');
 
-const { env } = require('../lib');
-const bootstrap = require('../bootstrap');
-const { user } = require('../service');
+const bootstrap = require('../module');
+const environments = require('../lib/env');
+const { userResource } = require('../interfaces/http/resources');
+const { userService } = require('../service');
+const server = require('../interfaces/http/server');
+const router = require('../interfaces/http/routes/router');
 
-console.log('user', user);
+// const loggerMiddleware = require('./interfaces/http/logging/loggerMiddleware');
+// const errorHandler = require('./interfaces/http/errors/errorHandler');
+// const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
+// const swaggerMiddleware = require('./interfaces/http/swagger/swaggerMiddleware');
 
-const UserSerializer = require('../interface/http/resources/user/UserSerializer');
-
-const server = require('../interface/http/server');
-const router = require('../interfaces/http/router');
-
-const loggerMiddleware = require('./interfaces/http/logging/loggerMiddleware');
-const errorHandler = require('./interfaces/http/errors/errorHandler');
-const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
-const swaggerMiddleware = require('./interfaces/http/swagger/swaggerMiddleware');
-
-const logger = require('./infra/logging/logger');
-const SequelizeUsersRepository = require('./infra/user/SequelizeUsersRepository');
-const { database, User: UserModel } = require('./infra/database/models');
+// const logging = require('./infra/logging/logging');
+// const SequelizeUsersRepository = require('./infra/user/SequelizeUsersRepository');
+// const { database, User: UserModel } = require('./infra/database/models');
 
 const container = createContainer();
 
@@ -30,42 +26,47 @@ container
     server: asClass(server).singleton()
   })
   .register({
-    router: asFunction(router).singleton(),
-    logger: asFunction(logger).singleton()
+    router: asFunction(router).singleton()
+    // logging: asFunction(logging).singleton()
   })
   .register({
-    env: asValue(env)
+    environments: asValue(environments)
   });
 
 // Middlewares
-container
-  .register({
-    loggerMiddleware: asFunction(loggerMiddleware).singleton()
-  })
-  .register({
-    containerMiddleware: asValue(scopePerRequest(container)),
-    swaggerMiddleware: asValue([swaggerMiddleware])
-  });
+container.register({
+  containerMiddleware: asValue(scopePerRequest(container))
+});
 
 // Repositories
-container.register({
-  usersRepository: asClass(SequelizeUsersRepository).singleton()
-});
+// container.register({
+//   usersRepository: asClass(SequelizeUsersRepository).singleton()
+// });
 
 // Database
+// container.register({
+//   database: asValue(database),
+//   UserModel: asValue(UserModel)
+// });
+
+// // Controller
 container.register({
-  database: asValue(database),
-  UserModel: asValue(UserModel)
+  userController: asValue(userResource.userController)
 });
 
-// Operations
+// Services
 container.register({
-  ...user
+  userService
 });
 
 // Serializers
 container.register({
-  userSerializer: asValue(UserSerializer)
+  userSerializer: asValue(userResource.userSerializer)
 });
+
+// // Router
+// container.register({
+//   userRouter: asFunction(userResource.userRouter)
+// });
 
 module.exports = container;
