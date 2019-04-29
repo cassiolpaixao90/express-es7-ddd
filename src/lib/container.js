@@ -1,12 +1,12 @@
-const { createContainer, asClass, asFunction, asValue } = require('awilix');
-const { scopePerRequest } = require('awilix-express');
+const { createContainer, asClass, asFunction, asValue } = require('awilix')
+const { scopePerRequest } = require('awilix-express')
 
-const bootstrap = require('../module');
-const environments = require('../lib/env');
-const { userResource } = require('../interfaces/http/resources');
-const { userService } = require('../service');
-const server = require('../interfaces/http/server');
-const router = require('../interfaces/http/routes/router');
+const bootstrap = require('../module')
+const environments = require('../lib/env')
+const { userResource } = require('../interfaces/http/resources')
+const { userService } = require('../service')
+const server = require('../interfaces/http/server')
+const router = require('../interfaces/http/router')
 
 // const loggerMiddleware = require('./interfaces/http/logging/loggerMiddleware');
 // const errorHandler = require('./interfaces/http/errors/errorHandler');
@@ -17,7 +17,7 @@ const router = require('../interfaces/http/routes/router');
 // const SequelizeUsersRepository = require('./infra/user/SequelizeUsersRepository');
 // const { database, User: UserModel } = require('./infra/database/models');
 
-const container = createContainer();
+const container = createContainer()
 
 // System
 container
@@ -31,12 +31,12 @@ container
   })
   .register({
     environments: asValue(environments)
-  });
+  })
 
 // Middlewares
 container.register({
   containerMiddleware: asValue(scopePerRequest(container))
-});
+})
 
 // Repositories
 // container.register({
@@ -52,21 +52,21 @@ container.register({
 // // Controller
 container.register({
   userController: asValue(userResource.userController)
-});
+})
 
 // Services
 container.register({
   userService
-});
+})
 
 // Serializers
 container.register({
   userSerializer: asValue(userResource.userSerializer)
-});
+})
 
 // // Router
 // container.register({
 //   userRouter: asFunction(userResource.userRouter)
 // });
 
-module.exports = container;
+module.exports = container
