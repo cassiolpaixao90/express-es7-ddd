@@ -5,13 +5,13 @@ if (!fs.existsSync(`logs`)) {
   fs.mkdirSync(`logs`);
 }
 
-module.exports = ({ config }) => {
+module.exports = ({ environment }) => {
   return new winston.createLogger({
     transports: [
       new winston.transports.Console(),
       new winston.transports.File(
-        Object.assign(config.logging, {
-          filename: `logs/${config.env}.log`
+        Object.assign(environment.logging, {
+          filename: `logs/${environment.env}.log`
         })
       )
     ]

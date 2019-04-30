@@ -1,12 +1,12 @@
-import chalk from 'chalk';
-const { container } = require('../lib');
+const chalk = require('chalk');
+const container = require('../container');
 const app = container.resolve('app');
 
 app
   .start()
-  .then(() => {
+  .then(port => {
     console.log(`
-    ${chalk.magenta(`App Started`)}
+    local: ${chalk.blue(`http://localhost:${port}`)}
     ${chalk.green(`Press ${chalk.green('CTRL-C')} to stop`)}
   `);
   })

@@ -1,8 +1,5 @@
-module.exports = ({ server, database }) => {
+module.exports = ({ server }) => {
   return {
-    start: () =>
-      Promise.resolve()
-        .then(database.authenticate)
-        .then(server.start)
-  }
-}
+    start: () => Promise.resolve().then(server.start)
+  };
+};

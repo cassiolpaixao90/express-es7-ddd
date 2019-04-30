@@ -13,9 +13,7 @@ class Operation extends EventEmitter {
       return this.addListener(output, handler);
     }
 
-    throw new Error(
-      `Invalid output "${output}" to operation ${this.constructor.name}.`
-    );
+    throw new Error(`Invalid output "${output}" to operation ${this.constructor.name}.`);
   }
 }
 

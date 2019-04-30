@@ -10,14 +10,14 @@ const controller = require('./utils/createController');
 const httpLogger = require('./logging/httpLogger');
 const errorHandler = require('./middlewares/errorHandler');
 
-module.exports = ({ config, logger }) => {
+module.exports = ({ environment, logger }) => {
   const router = Router();
 
-  if (config.env === 'development') {
+  if (environment.env === 'development') {
     router.use(statusMonitor());
   }
 
-  if (config.env !== 'test') {
+  if (environment.env !== 'test') {
     router.use(httpLogger(logger));
   }
 
@@ -35,10 +35,10 @@ module.exports = ({ config, logger }) => {
     .use(compression());
 
   apiRouter.use('/', controller('index'));
-  apiRouter.use('/users', controller('user').router);
+  apiRouter.use('/user', controller('user').router);
 
-  router.use(`/api/${config.version}`, apiRouter);
-  router.use(partialRight(errorHandler, [logger, config]));
+  router.use('/api/', apiRouter);
+  router.use(partialRight(errorHandler, [logger, environment]));
 
   return router;
 };

@@ -19,9 +19,8 @@ appModule.register({
   server: asFunction(server).singleton(),
   router: asFunction(router).singleton(),
   errors: asFunction(errors).singleton(),
-  logging: asFunction(logger).singleton(),
+  logger: asFunction(logger).singleton()
   // database: asFunction(database).singleton(),
-  config: asValue(config)
   // repository: asFunction(repository).singleton()
 });
 
