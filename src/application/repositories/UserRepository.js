@@ -1,7 +1,5 @@
 module.exports = class {
-  constructor() {
-    console.log('test');
-  }
+  constructor() {}
 
   persist(userEntity) {
     // To be overridden in concrete implementation

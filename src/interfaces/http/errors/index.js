@@ -1,5 +1,5 @@
 import HttpStatus from 'http-status';
-import { HttpCode, HttpMessage } from '../../../infrastructure/constants/httpConstants';
+import { HttpCode, HttpMessage } from '../constants/httpConstants';
 
 class ApplicationError extends Error {
   constructor(error, statusCode = 0, isOperational = false) {
@@ -25,7 +25,7 @@ module.exports.ForbiddenError = class extends ApplicationError {
 
 module.exports.BadRequestError = class extends ApplicationError {
   constructor(errors) {
-    super(errors, HttpCode.BAD_REQUEST, true);
+    super(errors.array({ onlyFirstError: true }), HttpCode.BAD_REQUEST, true);
   }
 };
 

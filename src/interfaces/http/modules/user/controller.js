@@ -1,7 +1,7 @@
-import bodyParser from 'body-parser';
 import { route, GET, POST, before } from 'awilix-express';
+import * as validator from './validator';
+import validatorHandler from '../../middlewares/validatorHandler';
 
-@before([bodyParser.json()])
 @route('/api/users')
 class UserController {
   constructor() {}
@@ -10,12 +10,15 @@ class UserController {
   @GET()
   async getUser(req, res) {
     res.json({ mes: 'cassio' });
-    // res.send(await this.userService.get(req.params.id));
   }
 
+  @before([validator.register, validatorHandler])
   @POST()
-  async createUser(req, res) {
-    // res.send(await this.userService.create(req.body));
+  async createUser(req, res, next) {
+    try {
+    } catch (e) {
+      next(e);
+    }
   }
 }
 

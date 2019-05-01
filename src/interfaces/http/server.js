@@ -1,4 +1,6 @@
 import cors from 'cors';
+import expressValidator from 'express-validator';
+
 const { loadControllers, scopePerRequest } = require('awilix-express');
 const http = require('http');
 const express = require('express');
@@ -8,7 +10,7 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const { partialRight } = require('ramda');
 
-module.exports = ({ environment, logger, context, errorHandler, errors }) => {
+module.exports = ({ environment, logger, context, errorHandler, validatorHandler, errors }) => {
   const app = express();
 
   app.use(
@@ -22,9 +24,11 @@ module.exports = ({ environment, logger, context, errorHandler, errors }) => {
   app.use(bodyParser.json());
   app.use(compression());
   app.disable('x-powered-by');
+  app.use(expressValidator());
   app.use(express.static('public'));
   app.use(scopePerRequest(context));
   app.use(loadControllers('modules/**/controller.js', { cwd: __dirname }));
+  app.use(partialRight(validatorHandler, [logger, errors]));
   app.get('*', (req, res, next) => {
     next(new errors.NotFoundError());
   });
