@@ -1,27 +1,42 @@
-import { createContainer, asValue, asFunction } from 'awilix';
+import { createContainer, asValue, asFunction, Lifetime, asClass } from 'awilix';
 
-const app = require('./application');
+import app from './application';
+import * as httpConstants from './infrastructure/constants/httpConstants';
+
 const server = require('./interfaces/http/server');
+const socket = require('./interfaces/http/socket');
 const router = require('./interfaces/http/router');
 const errors = require('./interfaces/http/errors');
+const errorHandler = require('./interfaces/http/middlewares/errorHandler');
 
-const environment = require('./infrastructure/environments');
 const logger = require('./infrastructure/logging/logger');
+const environment = require('./infrastructure/environments');
 // const database = require('./infrastructure/database');
-// const repository = require('./infrastructure/repositories');
+const repository = require('./application/repositories/UserRepository');
 
-const appModule = createContainer();
+const container = createContainer();
 
 // SYSTEM
-appModule.register({
-  app: asFunction(app).singleton(),
-  environment: asValue(environment),
-  server: asFunction(server).singleton(),
-  router: asFunction(router).singleton(),
-  errors: asFunction(errors).singleton(),
-  logger: asFunction(logger).singleton()
-  // database: asFunction(database).singleton(),
-  // repository: asFunction(repository).singleton()
-});
+container
+  .register({
+    app: asFunction(app).singleton(),
+    environment: asValue(environment),
+    server: asFunction(server).singleton(),
+    router: asFunction(router).singleton(),
+    errors: asValue(errors),
+    logger: asFunction(logger).singleton(),
+    socket: asFunction(socket).singleton(),
+    context: asValue(container),
+    errorHandler: asValue(errorHandler),
+    httpConstants: asValue(httpConstants),
+    // database: asFunction(database).singleton(),
+    repository: asFunction(repository).singleton()
+  })
+  .loadModules(['src/domain/services/*.js'], {
+    formatName: 'camelCase',
+    resolverOptions: {
+      lifetime: Lifetime.SCOPED
+    }
+  });
 
-module.exports = appModule;
+module.exports = container;

@@ -1,18 +1,22 @@
-const { Router } = require('express');
-const { inject } = require('awilix-express');
+import bodyParser from 'body-parser';
+import { route, GET, POST, before } from 'awilix-express';
 
-module.exports = logger => {
-  const router = Router();
+@before([bodyParser.json()])
+@route('/api/users')
+class UserController {
+  constructor() {}
 
-  router.use(inject('userSerializer'));
+  @route('/:id')
+  @GET()
+  async getUser(req, res) {
+    res.json({ mes: 'cassio' });
+    // res.send(await this.userService.get(req.params.id));
+  }
 
-  router.get('/', (req, res, next) => {});
+  @POST()
+  async createUser(req, res) {
+    // res.send(await this.userService.create(req.body));
+  }
+}
 
-  router.post('/', (req, res, next) => {});
-
-  router.put('/:id', (req, res, next) => {});
-
-  router.delete('/:id', (req, res, next) => {});
-
-  return router;
-};
+export default UserController;

@@ -4,9 +4,9 @@ const app = container.resolve('app');
 
 app
   .start()
-  .then(port => {
+  .then(() => {
     console.log(`
-    local: ${chalk.blue(`http://localhost:${port}`)}
+    application started
     ${chalk.green(`Press ${chalk.green('CTRL-C')} to stop`)}
   `);
   })

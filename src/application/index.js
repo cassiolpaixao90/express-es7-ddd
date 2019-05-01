@@ -1,5 +1,8 @@
-module.exports = ({ server }) => {
+module.exports = ({ server, socket }) => {
   return {
-    start: () => Promise.resolve().then(server.start)
+    start: () =>
+      Promise.resolve()
+        .then(server.start)
+        .then(socket.start)
   };
 };
