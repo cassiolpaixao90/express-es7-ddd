@@ -4,31 +4,22 @@ var _promise = require('babel-runtime/core-js/promise');
 
 var _promise2 = _interopRequireDefault(_promise);
 
-var _cors = require('cors');
-
-var _cors2 = _interopRequireDefault(_cors);
-
-var _expressValidator = require('express-validator');
-
-var _expressValidator2 = _interopRequireDefault(_expressValidator);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const cors = require('cors');
+const expressValidator = require('express-validator');
 const { loadControllers, scopePerRequest } = require('awilix-express');
 const http = require('http');
 const express = require('express');
 const socket = require('socket.io');
-
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const { partialRight } = require('ramda');
+const chalk = require('chalk');
 
-module.exports = ({ environment, logger, context, errorHandler, errors, userService }) => {
+module.exports = ({ environment, logger, context, errorHandler, errors }) => {
   const app = express();
-
-  console.log('userService', userService);
-
-  app.use((0, _cors2.default)({
+  app.use(cors({
     origin: ['*'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -37,10 +28,9 @@ module.exports = ({ environment, logger, context, errorHandler, errors, userServ
   app.use(bodyParser.json());
   app.use(compression());
   app.disable('x-powered-by');
-  app.use((0, _expressValidator2.default)());
-  app.use(express.static('public'));
+  app.use(expressValidator());
   app.use(scopePerRequest(context));
-  app.use(loadControllers('modules/**/router.js', { cwd: __dirname }));
+  app.use(loadControllers('modules/**/controller.js', { cwd: __dirname }));
   app.get('*', (req, res, next) => {
     next(new errors.NotFoundError());
   });
@@ -51,15 +41,15 @@ module.exports = ({ environment, logger, context, errorHandler, errors, userServ
     start: () => new _promise2.default((resolve, reject) => {
       const server = http.createServer(app);
       const io = socket(server);
-      server.listen(environment.server.port, () => {
-        resolve({ io, server });
-      });
+      server.listen(environment.server.port);
 
       server.on('error', err => {
         reject(err);
       });
 
       server.on('listening', () => {
+        console.log('\n');
+        console.log(`Localhost: ${chalk.magenta(`${environment.server.host}:${environment.server.port}`)}`);
         resolve({ io, server });
       });
     })

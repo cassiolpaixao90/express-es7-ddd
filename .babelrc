@@ -1,5 +1,19 @@
 {
-  "plugins": ["transform-runtime", "transform-object-rest-spread", "transform-decorators-legacy"],
+  "plugins": [
+    "transform-runtime",
+    "transform-object-rest-spread",
+    "transform-decorators-legacy",
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "src": "./src",
+          "test": "./test"
+        }
+      }
+    ]
+  ],
   "presets": [
     [
       "env",

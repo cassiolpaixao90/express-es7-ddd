@@ -1,17 +1,16 @@
-import { createContainer, asValue, asFunction, Lifetime, asClass } from 'awilix';
+const { createContainer, asValue, asFunction, Lifetime } = require('awilix');
 
-import app from './application';
-import * as httpConstants from './interfaces/http/constants/httpConstants';
+const app = require('src/application');
+const server = require('src/interfaces/http/server');
+const socket = require('src/interfaces/http/socket');
+const errors = require('src/interfaces/http/errors');
+const errorHandler = require('src/interfaces/http/middlewares/errorHandler');
+const httpConstants = require('src/interfaces/http/constants/httpConstants');
 
-const server = require('./interfaces/http/server');
-const socket = require('./interfaces/http/socket');
-const errors = require('./interfaces/http/errors');
-const errorHandler = require('./interfaces/http/middlewares/errorHandler');
-
-const logger = require('./infrastructure/logging/logger');
-const environment = require('./infrastructure/environments');
+const logger = require('src/infrastructure/logging/logger');
+const environment = require('src/infrastructure/environments');
 // const database = require('./infrastructure/database');
-const repository = require('./application/repositories/UserRepository');
+const repository = require('src/application/repositories/UserRepository');
 
 const container = createContainer();
 

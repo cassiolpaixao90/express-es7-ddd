@@ -1,20 +1,16 @@
-import cors from 'cors';
-import expressValidator from 'express-validator';
-
+const cors = require('cors');
+const expressValidator = require('express-validator');
 const { loadControllers, scopePerRequest } = require('awilix-express');
 const http = require('http');
 const express = require('express');
 const socket = require('socket.io');
-
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const { partialRight } = require('ramda');
+const chalk = require('chalk');
 
-module.exports = ({ environment, logger, context, errorHandler, errors, userService }) => {
+module.exports = ({ environment, logger, context, errorHandler, errors }) => {
   const app = express();
-
-  console.log('userService', userService);
-
   app.use(
     cors({
       origin: ['*'],
@@ -27,9 +23,8 @@ module.exports = ({ environment, logger, context, errorHandler, errors, userServ
   app.use(compression());
   app.disable('x-powered-by');
   app.use(expressValidator());
-  app.use(express.static('public'));
   app.use(scopePerRequest(context));
-  app.use(loadControllers('modules/**/router.js', { cwd: __dirname }));
+  app.use(loadControllers('modules/**/controller.js', { cwd: __dirname }));
   app.get('*', (req, res, next) => {
     next(new errors.NotFoundError());
   });
@@ -41,15 +36,15 @@ module.exports = ({ environment, logger, context, errorHandler, errors, userServ
       new Promise((resolve, reject) => {
         const server = http.createServer(app);
         const io = socket(server);
-        server.listen(environment.server.port, () => {
-          resolve({ io, server });
-        });
+        server.listen(environment.server.port);
 
         server.on('error', err => {
           reject(err);
         });
 
         server.on('listening', () => {
+          console.log('\n');
+          console.log(`Localhost: ${chalk.magenta(`${environment.server.host}:${environment.server.port}`)}`);
           resolve({ io, server });
         });
       })

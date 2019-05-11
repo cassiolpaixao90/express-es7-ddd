@@ -1,9 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _getOwnPropertyDescriptor = require('babel-runtime/core-js/object/get-own-property-descriptor');
 
 var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
@@ -72,15 +68,5 @@ let UserController = (_dec = (0, _awilixExpress.route)('/api/users'), _dec2 = (0
   }
 }, (_applyDecoratedDescriptor(_class2.prototype, 'getUser', [_dec2, _dec3], (0, _getOwnPropertyDescriptor2.default)(_class2.prototype, 'getUser'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'createUser', [_dec4, _dec5], (0, _getOwnPropertyDescriptor2.default)(_class2.prototype, 'createUser'), _class2.prototype)), _class2)) || _class);
 
-// class UserController {
-//   constructor({ userService }) {
-//     console.log('this.userService', this.userService);
-//     this.userService = userService;
-//   }
 
-//   getAll(req, res, next) {
-//     res.json({ message: 'ok' });
-//   }
-// }
-
-exports.default = UserController;
+module.exports = UserController;
