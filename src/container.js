@@ -7,7 +7,6 @@ const server = require('./interfaces/http/server');
 const socket = require('./interfaces/http/socket');
 const errors = require('./interfaces/http/errors');
 const errorHandler = require('./interfaces/http/middlewares/errorHandler');
-const validatorHandler = require('./interfaces/http/middlewares/validatorHandler');
 
 const logger = require('./infrastructure/logging/logger');
 const environment = require('./infrastructure/environments');
@@ -16,7 +15,6 @@ const repository = require('./application/repositories/UserRepository');
 
 const container = createContainer();
 
-// SYSTEM
 container
   .register({
     app: asFunction(app).singleton(),
@@ -27,7 +25,6 @@ container
     socket: asFunction(socket).singleton(),
     context: asValue(container),
     errorHandler: asValue(errorHandler),
-    validatorHandler: asValue(validatorHandler),
     httpConstants: asValue(httpConstants),
     // database: asFunction(database).singleton(),
     repository: asFunction(repository).singleton()
@@ -35,7 +32,7 @@ container
   .loadModules(['src/domain/services/*.js'], {
     formatName: 'camelCase',
     resolverOptions: {
-      lifetime: Lifetime.SCOPED
+      lifetime: Lifetime.CLASSIC
     }
   });
 

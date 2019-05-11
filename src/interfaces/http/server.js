@@ -10,8 +10,10 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const { partialRight } = require('ramda');
 
-module.exports = ({ environment, logger, context, errorHandler, validatorHandler, errors }) => {
+module.exports = ({ environment, logger, context, errorHandler, errors, userService }) => {
   const app = express();
+
+  console.log('userService', userService);
 
   app.use(
     cors({
@@ -27,8 +29,7 @@ module.exports = ({ environment, logger, context, errorHandler, validatorHandler
   app.use(expressValidator());
   app.use(express.static('public'));
   app.use(scopePerRequest(context));
-  app.use(loadControllers('modules/**/controller.js', { cwd: __dirname }));
-  app.use(partialRight(validatorHandler, [logger, errors]));
+  app.use(loadControllers('modules/**/router.js', { cwd: __dirname }));
   app.get('*', (req, res, next) => {
     next(new errors.NotFoundError());
   });
@@ -40,10 +41,14 @@ module.exports = ({ environment, logger, context, errorHandler, validatorHandler
       new Promise((resolve, reject) => {
         const server = http.createServer(app);
         const io = socket(server);
-        server.listen(environment.server.port);
+        server.listen(environment.server.port, () => {
+          resolve({ io, server });
+        });
+
         server.on('error', err => {
           reject(err);
         });
+
         server.on('listening', () => {
           resolve({ io, server });
         });

@@ -1,5 +1,5 @@
-const chalk = require('chalk');
-const container = require('../container');
+import chalk from 'chalk';
+import container from '../container';
 const app = container.resolve('app');
 
 app
@@ -13,6 +13,6 @@ app
   .catch(error => {
     console.log(`
     ${chalk.red(`Error: ${error.message}`)}
-  `);
+    `);
     process.exit();
   });

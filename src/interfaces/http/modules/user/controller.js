@@ -4,7 +4,9 @@ import validatorHandler from '../../middlewares/validatorHandler';
 
 @route('/api/users')
 class UserController {
-  constructor() {}
+  constructor({ userService }) {
+    this.userService = userService;
+  }
 
   @route('/:id')
   @GET()
@@ -16,10 +18,12 @@ class UserController {
   @POST()
   async createUser(req, res, next) {
     try {
+      const data = this.userService.execute(req.body);
+      res.json({ data: data });
     } catch (e) {
       next(e);
     }
   }
 }
 
-export default UserController;
+module.exports = UserController;

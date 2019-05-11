@@ -1,5 +1,4 @@
 {
-  "sourceMaps": "both",
   "plugins": ["transform-runtime", "transform-object-rest-spread", "transform-decorators-legacy"],
   "presets": [
     [
@@ -10,11 +9,5 @@
         }
       }
     ]
-  ],
-  "env": {
-    "production": {
-      "plugins": ["source-map-support"],
-      "ignore": ["**/__tests__/**"]
-    }
-  }
+  ]
 }
