@@ -31,7 +31,7 @@ container
   .loadModules(['src/domain/services/*.js'], {
     formatName: 'camelCase',
     resolverOptions: {
-      lifetime: Lifetime.CLASSIC
+      lifetime: Lifetime.SCOPED
     }
   });
 

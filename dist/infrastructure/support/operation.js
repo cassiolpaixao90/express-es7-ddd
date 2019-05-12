@@ -1,19 +1,10 @@
-'use strict';
-
-var _create = require('babel-runtime/core-js/object/create');
-
-var _create2 = _interopRequireDefault(_create);
-
-var _defineProperty = require('babel-runtime/core-js/object/define-property');
-
-var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+"use strict";
 
 const EventEmitter = require('events');
-const define = _defineProperty2.default;
 
-let Operation = class Operation extends EventEmitter {
+const define = Object.defineProperty;
+
+class Operation extends EventEmitter {
   static setOutputs(outputs) {
     define(this.prototype, 'outputs', {
       value: createOutputs(outputs)
@@ -27,14 +18,14 @@ let Operation = class Operation extends EventEmitter {
 
     throw new Error(`Invalid output "${output}" to operation ${this.constructor.name}.`);
   }
-};
 
+}
 
 const createOutputs = outputsArray => {
   return outputsArray.reduce((obj, output) => {
     obj[output] = output;
     return obj;
-  }, (0, _create2.default)(null));
+  }, Object.create(null));
 };
 
 module.exports = Operation;

@@ -1,8 +1,9 @@
-'use strict';
+"use strict";
 
-var _lodash = require('lodash');
+var _lodash = require("lodash");
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 const setting = require('./' + process.env.NODE_ENV + '.js' || {});
 
 const all = {
@@ -15,5 +16,4 @@ const all = {
     uri: setting.mongo.uri
   }
 };
-
 module.exports = (0, _lodash.assign)(all, require('./' + process.env.NODE_ENV + '.js' || {}));
