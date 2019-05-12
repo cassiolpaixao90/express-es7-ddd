@@ -8,9 +8,10 @@
       "type": "node",
       "request": "launch",
       "name": "Express Boilerplate",
-      "program": "${workspaceFolder}/src/bin/www",
+      "program": "${workspaceFolder}/src/bin/bootstrap.js",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
-      "runtimeArgs": ["--presets", "env"],
+      "runtimeArgs": ["--presets", "@babel/preset-env"],
+      "sourceMaps": true,
       "env": {
         "NODE_PATH": ".",
         "NODE_ENV": "development"
@@ -28,13 +29,7 @@
       "request": "launch",
       "name": "Unit Tests",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-      "args": [
-        "--timeout",
-        "999999",
-        "--colors",
-        "--opts",
-        "test/mocha.opts.unit"
-      ],
+      "args": ["--timeout", "999999", "--colors", "--opts", "test/mocha.opts.unit"],
       "cwd": "${workspaceRoot}",
       "env": {
         "NODE_ENV": "test",
@@ -47,13 +42,7 @@
       "request": "launch",
       "name": "Features Tests",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-      "args": [
-        "--timeout",
-        "999999",
-        "--colors",
-        "--opts",
-        "test/mocha.opts.features"
-      ],
+      "args": ["--timeout", "999999", "--colors", "--opts", "test/mocha.opts.features"],
       "cwd": "${workspaceRoot}",
       "env": {
         "NODE_ENV": "test",

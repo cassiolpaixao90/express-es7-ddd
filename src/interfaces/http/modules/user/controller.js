@@ -4,8 +4,8 @@ const { route, GET, POST } = require('awilix-express');
 
 @route('/api/users')
 class UserController {
-  constructor({ userService }) {
-    this.userService = userService;
+  constructor({ createUserCase }) {
+    this.createUserCase = createUserCase;
   }
 
   @route('/:id')
@@ -18,7 +18,7 @@ class UserController {
   @POST()
   async createUser(req, res, next) {
     try {
-      const data = this.userService.execute(req.body);
+      const data = this.createUserCase.execute(req.body);
       res.json({ data: data });
     } catch (e) {
       next(e);

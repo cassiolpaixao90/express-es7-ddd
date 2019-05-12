@@ -9,8 +9,8 @@ const httpConstants = require('src/interfaces/http/constants/httpConstants');
 
 const logger = require('src/infrastructure/logging/logger');
 const environment = require('src/infrastructure/environments');
+const vaidator = require('src/common/validator/SchemaValidator');
 // const database = require('./infrastructure/database');
-const repository = require('src/application/repositories/UserRepository');
 
 const container = createContainer();
 
@@ -18,21 +18,24 @@ container
   .register({
     app: asFunction(app).singleton(),
     environment: asValue(environment),
+    vaidator: asValue(vaidator),
     server: asFunction(server).singleton(),
     errors: asValue(errors),
     logger: asFunction(logger).singleton(),
     socket: asFunction(socket).singleton(),
     context: asValue(container),
     errorHandler: asValue(errorHandler),
-    httpConstants: asValue(httpConstants),
+    httpConstants: asValue(httpConstants)
     // database: asFunction(database).singleton(),
-    repository: asFunction(repository).singleton()
   })
-  .loadModules(['src/domain/services/*.js'], {
-    formatName: 'camelCase',
-    resolverOptions: {
-      lifetime: Lifetime.SCOPED
+  .loadModules(
+    ['src/application/repositories/**/*.js', 'src/application/use_cases/**/*.js', 'src/domain/services/**/*.js'],
+    {
+      formatName: 'camelCase',
+      resolverOptions: {
+        lifetime: Lifetime.SCOPED
+      }
     }
-  });
+  );
 
 module.exports = container;
