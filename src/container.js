@@ -8,8 +8,8 @@ const errorHandler = require('src/interfaces/http/middlewares/errorHandler');
 const httpConstants = require('src/interfaces/http/constants/httpConstants');
 
 const logger = require('src/infrastructure/logging/logger');
-const environment = require('src/infrastructure/environments');
-const vaidator = require('src/common/validator/SchemaValidator');
+const environment = require('src/infrastructure/environments/development');
+
 // const database = require('./infrastructure/database');
 
 const container = createContainer();
@@ -18,7 +18,6 @@ container
   .register({
     app: asFunction(app).singleton(),
     environment: asValue(environment),
-    vaidator: asValue(vaidator),
     server: asFunction(server).singleton(),
     errors: asValue(errors),
     logger: asFunction(logger).singleton(),
@@ -29,7 +28,12 @@ container
     // database: asFunction(database).singleton(),
   })
   .loadModules(
-    ['src/application/repositories/**/*.js', 'src/application/use_cases/**/*.js', 'src/domain/services/**/*.js'],
+    [
+      'src/application/repositories/**/*.js',
+      'src/application/use_cases/**/*.js',
+      'src/domain/services/**/*.js',
+      'src/interfaces/http/modules/**/*.js'
+    ],
     {
       formatName: 'camelCase',
       resolverOptions: {
