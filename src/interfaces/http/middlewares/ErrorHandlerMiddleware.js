@@ -1,6 +1,6 @@
 const HttpStatus = require('http-status');
 
-module.exports = (err, req, res, next, logger, config) => {
+module.exports = (err, req, res, next, logger) => {
   const { isOperational } = err;
   logger.error(err);
   if (isOperational) {

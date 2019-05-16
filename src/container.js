@@ -4,7 +4,7 @@ const app = require('src/application');
 const server = require('src/interfaces/http/server');
 const socket = require('src/interfaces/http/socket');
 const errors = require('src/interfaces/http/errors');
-const errorHandler = require('src/interfaces/http/middlewares/errorHandler');
+const errorHandler = require('src/interfaces/http/middlewares/ErrorHandlerMiddleware');
 const httpConstants = require('src/interfaces/http/constants/httpConstants');
 
 const logger = require('src/infrastructure/logging/logger');

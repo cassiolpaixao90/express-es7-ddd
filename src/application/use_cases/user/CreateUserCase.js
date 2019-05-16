@@ -7,10 +7,6 @@ class CreateUserCase {
 
   async execute(data) {
     const user = new User(data);
-    const { valid, errors } = user.validate();
-    if (!valid) {
-      console.log('errors', errors);
-    }
     await this.createUserRepository.execute(user);
   }
 }

@@ -11,9 +11,10 @@
       "name": "Express Boilerplate",
       "program": "${workspaceFolder}/src/bin/bootstrap.js",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
-      "restart": true,
-      "protocol": "inspector",
+      "restart": false,
+      "sourceMaps": true,
       "stopOnEntry": false,
+      "remoteRoot": null,
       "env": {
         "NODE_PATH": ".",
         "NODE_ENV": "development"

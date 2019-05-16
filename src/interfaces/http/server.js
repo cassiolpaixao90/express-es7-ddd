@@ -22,10 +22,9 @@ module.exports = ({ environment, logger, context, errorHandler, errors }) => {
   app.use(bodyParser.json());
   app.use(compression());
   app.disable('x-powered-by');
-  app.use(expressValidator());
   app.use(scopePerRequest(context));
   app.use(loadControllers('modules/**/controller.js', { cwd: __dirname }));
-  // app.use(loadControllers('modules/**/router.js', { cwd: __dirname }));
+  app.use(expressValidator());
   app.get('*', (req, res, next) => {
     next(new errors.NotFoundError());
   });

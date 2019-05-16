@@ -1,6 +1,6 @@
-const { route, GET, POST } = require('awilix-express');
-// import * as validator from './validator';
-// import validatorHandler from '../../middlewares/validatorHandler';
+const { before, route, GET, POST } = require('awilix-express');
+const { register } = require('src/interfaces/http/modules/user/validator');
+const validatorHandler = require('src/interfaces/http/middlewares/ValidatorMiddleware');
 
 @route('/api/users')
 class UserController {
@@ -14,8 +14,8 @@ class UserController {
     res.json({ mes: 'cassio' });
   }
 
-  //   @before([validator.register, validatorHandler])
   @POST()
+  @before([register, validatorHandler])
   async createUser(req, res, next) {
     try {
       const data = this.createUserCase.execute(req.body);
