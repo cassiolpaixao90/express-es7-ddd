@@ -9,7 +9,7 @@ const compression = require('compression');
 const { partialRight } = require('ramda');
 const chalk = require('chalk');
 
-module.exports = ({ environment, logger, context, errorHandler, errors }) => {
+module.exports = ({ environment, logger, context, errorHandler, errors , logMiddleware}) => {
   const app = express();
   app.use(
     cors({
@@ -23,6 +23,7 @@ module.exports = ({ environment, logger, context, errorHandler, errors }) => {
   app.use(compression());
   app.disable('x-powered-by');
   app.use(scopePerRequest(context));
+  app.use(logMiddleware.use());
   app.use(loadControllers('modules/**/controller.js', { cwd: __dirname }));
   app.use(expressValidator());
   app.get('*', (req, res, next) => {

@@ -2,13 +2,13 @@ const morgan  = require('morgan');
 
 class LogMiddleware {
 
-    constructor(logger, environments){
+    constructor({logger, environment}){
         this.logger = logger;
-        this.environments = environments;
+        this.environment = environment;
     }
 
-    static use(req, res, next) {
-        return morgan(this.environments.log.output, {
+     use(req, res, next) {
+        return morgan(this.environment.log.output, {
             stream: {
                 write: message => {
                     this.logger.info(message);
