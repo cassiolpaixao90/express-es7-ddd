@@ -1,4 +1,4 @@
-class LocaleService {
+class LocaleCase {
   constructor({ i18nProvider }) {
     this.i18nProvider = i18nProvider;
   }
@@ -17,4 +17,4 @@ class LocaleService {
     return this.i18nProvider.__n(phrase, count);
   }
 }
-module.exports = LocaleService;
+module.exports = LocaleCase;

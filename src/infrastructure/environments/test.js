@@ -7,8 +7,8 @@ module.exports = {
     port: 3000
   },
   logging: {
-    maxsize: 100 * 1024,
-    maxFiles: 2,
-    colorize: false
+    appenders: [
+      { type: 'console', layout: { type: 'basic' } }
+    ]
   }
 };

@@ -7,8 +7,8 @@ module.exports = {
     port: process.env.PORT || ''
   },
   logging: {
-    maxsize: 100 * 1024,
-    maxFiles: 2,
-    colorize: false
+    appenders: [
+      { type: 'console', layout: { type: 'basic' } }
+    ]
   }
 };

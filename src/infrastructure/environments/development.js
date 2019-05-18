@@ -1,3 +1,6 @@
+const path = require('path');
+const logPath = path.join(__dirname, '../../logs/development.log');
+
 module.exports = {
   mongo: {
     uri: ''
@@ -7,8 +10,6 @@ module.exports = {
     port: 5000
   },
   logging: {
-    maxsize: 100 * 1024,
-    maxFiles: 2,
-    colorize: false
+    appenders: [{ type: 'console' }, { type: 'file', filename: logPath }]
   }
 };
