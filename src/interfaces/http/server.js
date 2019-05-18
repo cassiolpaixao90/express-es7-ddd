@@ -17,7 +17,7 @@ module.exports = ({
   loggingMiddleware,
   errorHandlerMiddleware,
   localeMiddleware,
-  localeCase
+
 }) => {
   const app = express();
   app.use(
@@ -37,7 +37,7 @@ module.exports = ({
   app.use(loadControllers('modules/**/controller.js', { cwd: __dirname }));
   app.use(expressValidator());
   app.get('*', (req, res, next) => {
-    next(new errors.NotFoundError());
+    next(errors.notFound());
   });
   app.use(errorHandlerMiddleware.use());
 

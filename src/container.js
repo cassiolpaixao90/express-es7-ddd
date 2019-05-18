@@ -3,13 +3,13 @@ const { createContainer, asValue, asFunction,asClass, Lifetime } = require('awil
 const app = require('src/application');
 const server = require('src/interfaces/http/server');
 const socket = require('src/interfaces/http/socket');
-const errors = require('src/interfaces/http/errors');
+const errors = require('src/interfaces/http/errors/HttpErrors');
 // const errorHandler = require('src/interfaces/http/middlewares/ErrorHandlerMiddleware');
-const httpConstants = require('src/interfaces/http/constants/httpConstants');
 
 const logger = require('src/infrastructure/logging/logger');
 const environment = require('src/infrastructure/environments');
-const i18n = require('src/infrastructure/i18n/Provider');
+const providerI18n = require('src/infrastructure/i18n/ProviderI18n');
+const localeI18n = require('src/infrastructure/i18n/LocaleI18n');
 
 // const database = require('./infrastructure/database');
 
@@ -25,8 +25,9 @@ container
     socket: asFunction(socket).singleton(),
     context: asValue(container),
     // errorHandler: asValue(errorHandler),
-    httpConstants: asValue(httpConstants),
-    i18nProvider: asValue(i18n)
+
+      localeI18n: asClass(localeI18n).singleton(),
+    i18nProvider: asValue(providerI18n)
 
     // database: asFunction(database).singleton(),
   })

@@ -14,8 +14,8 @@ class UserController {
     res.json({ mes: 'cassio' });
   }
 
-  @POST()
   @before([register, validatorHandler])
+  @POST()
   async createUser(req, res, next) {
     try {
       const data = this.createUserCase.execute(req.body);

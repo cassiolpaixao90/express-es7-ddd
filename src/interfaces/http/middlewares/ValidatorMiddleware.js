@@ -5,9 +5,7 @@ module.exports = (req, res, next) => {
     const { errors } = req.container.cradle;
     const result = validationResult(req);
     if (!result.isEmpty()) {
-      // return next(result.array());
-      // throw new errors.BadRequestError(result.array({onlyFirstError: true}));
-      console.log("result", result.array());
+       throw errors.badRequest(result.array({onlyFirstError: true}));
     }
     next();
   } catch (e) {
