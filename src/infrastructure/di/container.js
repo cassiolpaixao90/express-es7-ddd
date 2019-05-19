@@ -1,6 +1,6 @@
 const { createContainer, asValue, asFunction,asClass, Lifetime } = require('awilix');
 
-const app = require('src/application');
+const app = require('src/app');
 const server = require('src/interfaces/http/server');
 const socket = require('src/interfaces/http/socket');
 const errors = require('src/interfaces/http/errors/HttpErrors');
