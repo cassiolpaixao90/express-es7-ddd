@@ -1,8 +1,14 @@
 class CreateUserRepository {
-  constructor() {}
+  constructor({strategyPersistence}) {
+    this.strategyPersistence = strategyPersistence;
+  }
 
   async execute(data) {
-    console.log('data', data);
+    try {
+      await this.strategyPersistence.orm('mongo').db('ddd').action('save').in("user").execute(data);
+    } catch (e) {
+      throw e;
+    }
   }
 }
 
