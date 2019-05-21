@@ -7,8 +7,6 @@ module.exports = {
     port: 3000
   },
   logging: {
-    appenders: [
-      { type: 'console', layout: { type: 'basic' } }
-    ]
+    appenders: [{ type: 'console', layout: { type: 'basic' } }]
   }
 };

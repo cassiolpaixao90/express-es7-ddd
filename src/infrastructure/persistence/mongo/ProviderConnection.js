@@ -4,8 +4,7 @@ const Promise = require('bluebird');
 mongoose.Promise = Promise;
 
 class ProviderConnection {
-
-  constructor({environment}) {
+  constructor({ environment }) {
     this.environment = environment;
     this.internalConnectionPool = {};
   }

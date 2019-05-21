@@ -1,9 +1,9 @@
 class UpdateUserRepository {
-    constructor() {}
+  constructor() {}
 
-    async execute(data) {
-        return data;
-    }
+  async execute(data) {
+    return data;
+  }
 }
 
 module.exports = UpdateUserRepository;

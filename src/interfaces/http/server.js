@@ -16,8 +16,7 @@ module.exports = ({
   errors,
   loggingMiddleware,
   errorHandlerMiddleware,
-  localeMiddleware,
-
+  localeMiddleware
 }) => {
   const app = express();
   app.use(
@@ -55,7 +54,11 @@ module.exports = ({
 
         server.on('listening', () => {
           console.log('\n');
-          console.log(`Localhost: ${chalk.magenta(`${environment.server.host}:${environment.server.port}`)}`);
+          console.log(
+            `Localhost: ${chalk.magenta(
+              `${environment.server.host}:${environment.server.port}`
+            )}`
+          );
           resolve({ io, server });
         });
       })

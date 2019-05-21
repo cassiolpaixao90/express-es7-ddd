@@ -1,9 +1,9 @@
 class GetUserRepository {
-    constructor() {}
+  constructor() {}
 
-    async execute(data) {
-        return data;
-    }
+  async execute(data) {
+    return data;
+  }
 }
 
 module.exports = GetUserRepository;

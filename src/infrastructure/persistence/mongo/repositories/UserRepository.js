@@ -1,28 +1,32 @@
 class UserRepository {
-    constructor({providerFactory}) {
-        this.providerFactory = providerFactory;
+  constructor({providerFactory}) {
+    this.providerFactory = providerFactory;
+  }
+
+  async save(data, db) {
+    try {
+      const User = await this.providerFactory.getUserModel(db);
+      return await User.save(data);
+    } catch (e) {
+      throw e;
     }
+  }
 
-    async save(data, db) {
-        const User = await this.providerFactory.getUserModel(db);
-        await User.save(data);
-    }
+  async getUser() {
 
-    async getUser() {
+  }
 
-    }
+  async getAll() {
 
-    async getAll() {
+  }
 
-    }
+  async update() {
 
-    async update() {
+  }
 
-    }
+  async delete() {
 
-    async delete() {
-
-    }
+  }
 
 }
 

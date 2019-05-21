@@ -1,31 +1,32 @@
 class StrategyPersistence {
-
-  constructor({}) {
-
+  constructor({ strategy }) {
+    this.strategy = strategy;
   }
 
-  orm(orm = "") {
+  orm(orm = '') {
     this.orm = orm;
     return this;
   }
 
-  db(db = "") {
+  db(db = '') {
     this.db = db;
     return this;
   }
 
-  action(action = "") {
+  action(action = '') {
     this.action = action;
     return this;
   }
 
-  in(name = "") {
+  in(name = '') {
     this.name = name;
     return this;
   }
 
-  async execute() {
-
+  async execute(body = {}) {
+    const action = this.strategy[this.name];
+    const data = await action(body, this.db);
+    return data;
   }
 }
 
