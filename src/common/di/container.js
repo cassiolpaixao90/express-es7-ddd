@@ -14,7 +14,14 @@ const logger = require('src/infrastructure/logging/logger');
 const environment = require('src/common/environments');
 const providerTranslator = require('src/infrastructure/translate/ProviderTranslator');
 const localeTranslator = require('src/infrastructure/translate/LocaleTranslator');
-const mongo = require('src/infrastructure/persistence/mongo/ProviderConnection');
+
+const UserSchemaMongo = require('src/infrastructure/persistence/mongo/models/UserSchema');
+const ProviderFactoryMongo = require('src/infrastructure/persistence/mongo/ProviderFactory');
+const ProviderConnectionMongo = require('src/infrastructure/persistence/mongo/ProviderConnection');
+const StrategyPersistence = require('src/infrastructure/persistence/StrategyPersistence');
+const StrategyOrm = require('src/infrastructure/persistence');
+const UserRepository = require('src/infrastructure/persistence/mongo/repositories/UserRepository');
+
 // const database = require('mongo./infrastructure/database');
 
 const container = createContainer();
@@ -27,13 +34,17 @@ container
     errors: asValue(errors),
     logger: asFunction(logger).singleton(),
     socket: asFunction(socket).singleton(),
-    mongo: asClass(mongo).singleton(),
     context: asValue(container),
     // errorHandler: asValue(errorHandler),
 
     localeTranslator: asClass(localeTranslator).singleton(),
-    providerTranslator: asValue(providerTranslator)
-
+    providerTranslator: asValue(providerTranslator),
+    strategyPersistence: asClass(StrategyPersistence),
+    strategyOrm: asValue(StrategyOrm),
+    providerConnectionMongo: asClass(ProviderConnectionMongo),
+    providerFactoryMongo: asClass(ProviderFactoryMongo).singleton(),
+    userSchemaMongo: asValue(UserSchemaMongo),
+    userRepository: asClass(UserRepository).singleton()
     // database: asFunction(database).singleton(),
   })
   .loadModules(

@@ -1,17 +1,17 @@
 class ProviderFactory {
-  constructor({ environment, connectionProvider, userSchema }) {
+  constructor({ environment, providerConnectionMongo, userSchemaMongo }) {
     this.environment = environment;
-    this.connectionProvider = connectionProvider;
-    this.userSchema = userSchema;
+    this.providerConnectionMongo = providerConnectionMongo;
+    this.userSchemaMongo = userSchemaMongo;
   }
 
   async getUserModel(db = '') {
     try {
-      const conn = await this.connectionProvider(
+      const conn = await this.providerConnectionMongo.start(
         this.environment.mongo[db].uri,
         this.environment.mongo[db].options
       );
-      return conn.model('User', this.userSchema);
+      return conn.model('User', this.userSchemaMongo);
     } catch (err) {
       throw err;
     }

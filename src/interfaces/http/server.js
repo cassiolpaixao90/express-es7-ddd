@@ -16,7 +16,8 @@ module.exports = ({
   errors,
   loggingMiddleware,
   errorHandlerMiddleware,
-  localeMiddleware
+  localeMiddleware,
+  providerFactoryMongo
 }) => {
   const app = express();
   app.use(

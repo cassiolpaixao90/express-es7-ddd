@@ -1,6 +1,6 @@
 class StrategyPersistence {
-  constructor({ strategy }) {
-    this.strategy = strategy;
+  constructor({ strategyOrm }) {
+    this.strategyOrm = strategyOrm;
   }
 
   orm(orm = '') {
@@ -24,8 +24,10 @@ class StrategyPersistence {
   }
 
   async execute(body = {}) {
-    const action = this.strategy[this.name];
-    const data = await action(body, this.db);
+    const orm = this.strategyOrm[this.orm];
+    const clazz = orm[this.name];
+    const fn = { clazz };
+    const data = await fn(body, this.db);
     return data;
   }
 }
