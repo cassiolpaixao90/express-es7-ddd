@@ -1,6 +1,6 @@
 class StrategyPersistence {
-  constructor({ strategyOrm }) {
-    this.strategyOrm = strategyOrm;
+  constructor({ userRepositoryMongo }) {
+    this.userRepositoryMongo = userRepositoryMongo;
   }
 
   orm(orm = '') {
@@ -18,17 +18,10 @@ class StrategyPersistence {
     return this;
   }
 
-  in(name = '') {
-    this.name = name;
-    return this;
-  }
-
   async execute(body = {}) {
-    const orm = this.strategyOrm[this.orm];
-    const clazz = orm[this.name];
-    const fn = { clazz };
-    const data = await fn(body, this.db);
-    return data;
+    if (this.orm === 'mongo') {
+      return await this.userRepositoryMongo[this.action](this.db, body);
+    }
   }
 }
 

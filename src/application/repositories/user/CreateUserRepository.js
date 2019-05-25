@@ -1,17 +1,16 @@
 class CreateUserRepository {
-  constructor({ userRepository }) {
-    this.userRepository = userRepository;
+  constructor({ strategyPersistence }) {
+    this.strategyPersistence = strategyPersistence;
   }
 
   async execute(data) {
     try {
-      // await this.strategyPersistence
-      //   .orm('mongo')
-      //   .db('ddd')
-      //   .action('save')
-      //   .in('user')
-      //   .execute(data);
-      await this.userRepository.save(data, 'ddd');
+      await this.strategyPersistence
+        .orm('mongo')
+        .db('ddd')
+        .action('save')
+        .execute(data);
+      // await this.userRepository.save(data, 'ddd');
     } catch (e) {
       throw e;
     }

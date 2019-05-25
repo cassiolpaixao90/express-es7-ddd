@@ -16,11 +16,10 @@ const providerTranslator = require('src/infrastructure/translate/ProviderTransla
 const localeTranslator = require('src/infrastructure/translate/LocaleTranslator');
 
 const UserSchemaMongo = require('src/infrastructure/persistence/mongo/models/UserSchema');
-const ProviderFactoryMongo = require('src/infrastructure/persistence/mongo/ProviderFactory');
+const ProviderFactoryMongo = require('src/infrastructure/persistence/mongo/ProviderMongoFactory');
 const ProviderConnectionMongo = require('src/infrastructure/persistence/mongo/ProviderConnection');
 const StrategyPersistence = require('src/infrastructure/persistence/StrategyPersistence');
-const StrategyOrm = require('src/infrastructure/persistence');
-const UserRepository = require('src/infrastructure/persistence/mongo/repositories/UserRepository');
+const UserRepositoryMongo = require('src/infrastructure/persistence/mongo/repositories/UserRepositoryMongo');
 
 // const database = require('mongo./infrastructure/database');
 
@@ -40,11 +39,10 @@ container
     localeTranslator: asClass(localeTranslator).singleton(),
     providerTranslator: asValue(providerTranslator),
     strategyPersistence: asClass(StrategyPersistence),
-    strategyOrm: asValue(StrategyOrm),
     providerConnectionMongo: asClass(ProviderConnectionMongo),
     providerFactoryMongo: asClass(ProviderFactoryMongo).singleton(),
     userSchemaMongo: asValue(UserSchemaMongo),
-    userRepository: asClass(UserRepository).singleton()
+    userRepositoryMongo: asClass(UserRepositoryMongo).singleton()
     // database: asFunction(database).singleton(),
   })
   .loadModules(
@@ -52,7 +50,7 @@ container
       'src/application/repositories/**/*.js',
       'src/application/use_cases/**/*.js',
       'src/domain/services/**/*.js',
-      'src/interfaces/http/modules/**/*.js',
+      'src/interfaces/http/presentation/**/*.js',
       [
         'src/interfaces/http/middlewares/*.js',
         {

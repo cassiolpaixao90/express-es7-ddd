@@ -1,4 +1,4 @@
-class ProviderFactory {
+class ProviderMongoFactory {
   constructor({ environment, providerConnectionMongo, userSchemaMongo }) {
     this.environment = environment;
     this.providerConnectionMongo = providerConnectionMongo;
@@ -18,4 +18,4 @@ class ProviderFactory {
   }
 }
 
-module.exports = ProviderFactory;
+module.exports = ProviderMongoFactory;

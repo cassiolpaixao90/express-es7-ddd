@@ -34,7 +34,7 @@ module.exports = ({
   app.use(scopePerRequest(context));
   app.use(localeMiddleware.use());
   app.use(loggingMiddleware.use());
-  app.use(loadControllers('modules/**/controller.js', { cwd: __dirname }));
+  app.use(loadControllers('presentation/**/controller.js', { cwd: __dirname }));
   app.use(expressValidator());
   app.get('*', (req, res, next) => {
     next(errors.notFound());

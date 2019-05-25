@@ -1,5 +1,5 @@
 const { before, route, GET, POST } = require('awilix-express');
-const { register } = require('src/interfaces/http/modules/user/validator');
+const { register } = require('src/interfaces/http/presentation/user/validator');
 const validatorHandler = require('src/interfaces/http/middlewares/ValidatorMiddleware');
 
 @route('/api/users')
