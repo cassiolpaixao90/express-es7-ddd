@@ -1,12 +1,9 @@
-const { attributes } = require('structure');
-
-const User = attributes({
-  id: Number,
-  name: {
-    type: String,
-    required: true
-  },
-  age: Number
-})(class User {});
+class User {
+  constructor({ id, name, age }) {
+    this.id = id;
+    this.name = name;
+    this.age = age;
+  }
+}
 
 module.exports = User;

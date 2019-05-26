@@ -6,8 +6,12 @@ class CreateUserCase {
   }
 
   async execute(data) {
-    const user = new User(data);
-    await this.createUserRepository.execute(user);
+    try {
+      const user = new User(data);
+      await this.createUserRepository.execute(user);
+    } catch (e) {
+      throw e;
+    }
   }
 }
 

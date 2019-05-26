@@ -5,7 +5,8 @@ class UserRepository {
   async save(db, data) {
     try {
       const User = await this.providerFactoryMongo.getUserModel(db);
-      return await User.save(data);
+      const user = new User(data);
+      return await user.save();
     } catch (e) {
       throw e;
     }

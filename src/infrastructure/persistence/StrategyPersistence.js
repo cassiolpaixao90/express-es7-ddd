@@ -19,8 +19,9 @@ class StrategyPersistence {
   }
 
   async execute(body = {}) {
-    if (this.orm === 'mongo') {
-      return await this.userRepositoryMongo[this.action](this.db, body);
+    switch (this.orm) {
+      case 'mongo':
+        return await this.userRepositoryMongo[this.action](this.db, body);
     }
   }
 }
