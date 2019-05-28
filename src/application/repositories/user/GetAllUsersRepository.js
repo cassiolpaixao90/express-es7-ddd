@@ -1,8 +1,18 @@
 class GetAllUsersRepository {
-  constructor() {}
+  constructor({ strategyPersistence }) {
+    this.strategyPersistence = strategyPersistence;
+  }
 
   async execute(data) {
-    return data;
+    try {
+      await this.strategyPersistence
+        .orm('mongo')
+        .db('ddd')
+        .action('getAll')
+        .execute(data);
+    } catch (e) {
+      throw e;
+    }
   }
 }
 

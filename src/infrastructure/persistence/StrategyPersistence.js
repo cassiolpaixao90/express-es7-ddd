@@ -18,10 +18,10 @@ class StrategyPersistence {
     return this;
   }
 
-  async execute(body = {}) {
+  async execute(value = {}) {
     switch (this.orm) {
       case 'mongo':
-        return await this.userRepositoryMongo[this.action](this.db, body);
+        return await this.userRepositoryMongo[this.action](this.db, value);
     }
   }
 }

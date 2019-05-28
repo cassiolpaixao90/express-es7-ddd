@@ -1,8 +1,18 @@
 class UpdateUserRepository {
-  constructor() {}
+  constructor({ strategyPersistence }) {
+    this.strategyPersistence = strategyPersistence;
+  }
 
   async execute(data) {
-    return data;
+    try {
+      await this.strategyPersistence
+        .orm('mongo')
+        .db('ddd')
+        .action('update')
+        .execute(data);
+    } catch (e) {
+      throw e;
+    }
   }
 }
 

@@ -34,13 +34,20 @@ class UserRepository {
   async update(db, id) {
     try {
       const User = await this.providerFactoryMongo.getUserModel(db);
-      return await User.findByIdAndUpdate({ _id: id });
+      return await User.update({ _id: id });
     } catch (e) {
       throw e;
     }
   }
 
-  async delete() {}
+  async delete(db, id) {
+    try {
+      const User = await this.providerFactoryMongo.getUserModel(db);
+      return await User.delete({ _id: id });
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 module.exports = UserRepository;
