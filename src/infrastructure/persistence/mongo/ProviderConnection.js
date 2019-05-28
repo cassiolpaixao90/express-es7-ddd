@@ -17,6 +17,7 @@ class ProviderConnection {
       },
       options
     );
+
     return new Promise((resolve, reject) => {
       if (!this.internalConnectionPool[database]) {
         try {
@@ -25,9 +26,7 @@ class ProviderConnection {
             this.internalConnectionPool[database] = conn;
             resolve(this.internalConnectionPool[database]);
           });
-          conn.on('error', err => {
-            console.error('MongoDB error: %s', err);
-          });
+          conn.on('error', err => console.error('MongoDB error: %s', err));
         } catch (err) {
           reject(err);
         }

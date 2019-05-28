@@ -9,7 +9,7 @@ const {
 const app = require('src/app');
 const server = require('src/interfaces/http/server');
 const socket = require('src/interfaces/http/socket');
-const errors = require('src/interfaces/http/errors/HttpErrors');
+const appErrors = require('src/interfaces/http/errors/HttpErrors');
 const logger = require('src/infrastructure/logging/logger');
 const environment = require('src/common/environments');
 const providerTranslator = require('src/infrastructure/translate/ProviderTranslator');
@@ -30,7 +30,7 @@ container
     app: asFunction(app).singleton(),
     environment: asValue(environment),
     server: asFunction(server).singleton(),
-    errors: asValue(errors),
+    appErrors: asValue(appErrors),
     logger: asFunction(logger).singleton(),
     socket: asFunction(socket).singleton(),
     context: asValue(container),

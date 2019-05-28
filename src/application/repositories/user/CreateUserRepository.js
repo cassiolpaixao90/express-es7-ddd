@@ -10,7 +10,6 @@ class CreateUserRepository {
         .db('ddd')
         .action('save')
         .execute(data);
-      // await this.userRepository.save(data, 'ddd');
     } catch (e) {
       throw e;
     }

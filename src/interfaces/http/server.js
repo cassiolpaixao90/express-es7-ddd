@@ -6,18 +6,15 @@ const express = require('express');
 const socket = require('socket.io');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const { partialRight } = require('ramda');
 const chalk = require('chalk');
 
 module.exports = ({
   environment,
-  logger,
   context,
-  errors,
+  appErrors,
   loggingMiddleware,
-  errorHandlerMiddleware,
-  localeMiddleware,
-  providerFactoryMongo
+  errorMiddleware,
+  localeMiddleware
 }) => {
   const app = express();
   app.use(
@@ -37,9 +34,9 @@ module.exports = ({
   app.use(loadControllers('presentation/**/controller.js', { cwd: __dirname }));
   app.use(expressValidator());
   app.get('*', (req, res, next) => {
-    next(errors.notFound());
+    next(appErrors.notFound());
   });
-  app.use(errorHandlerMiddleware.use());
+  app.use(errorMiddleware.use());
 
   return {
     app,

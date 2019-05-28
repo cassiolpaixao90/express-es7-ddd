@@ -1,8 +1,14 @@
+const User = require('src/domain/entities/users/User');
 class CreateUserService {
   constructor() {}
 
   async execute(data) {
-    return data;
+    try {
+      const user = new User(data);
+      return user;
+    } catch (e) {
+      throw e;
+    }
   }
 }
 

@@ -2,6 +2,7 @@ class UserRepository {
   constructor({ providerFactoryMongo }) {
     this.providerFactoryMongo = providerFactoryMongo;
   }
+
   async save(db, data) {
     try {
       const User = await this.providerFactoryMongo.getUserModel(db);
@@ -12,11 +13,32 @@ class UserRepository {
     }
   }
 
-  async getUser() {}
+  async getUser(db, id) {
+    try {
+      const User = await this.providerFactoryMongo.getUserModel(db);
+      return await User.findOne({ _id: id });
+    } catch (e) {
+      throw e;
+    }
+  }
 
-  async getAll() {}
+  async getAll(db) {
+    try {
+      const User = await this.providerFactoryMongo.getUserModel(db);
+      return await User.find();
+    } catch (e) {
+      throw e;
+    }
+  }
 
-  async update() {}
+  async update(db, id) {
+    try {
+      const User = await this.providerFactoryMongo.getUserModel(db);
+      return await User.findByIdAndUpdate({ _id: id });
+    } catch (e) {
+      throw e;
+    }
+  }
 
   async delete() {}
 }
