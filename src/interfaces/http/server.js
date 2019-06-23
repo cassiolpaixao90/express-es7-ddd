@@ -36,6 +36,9 @@ module.exports = ({
   app.get('*', (req, res, next) => {
     next(appErrors.notFound());
   });
+  app.use((error, req, res, next) => {
+    next(error);
+  });
   app.use(errorMiddleware.use());
 
   return {

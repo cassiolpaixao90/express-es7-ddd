@@ -16,5 +16,8 @@ module.exports = {
   },
   logging: {
     appenders: [{ type: 'console' }, { type: 'file', filename: logPath }]
+  },
+  stackError: {
+    isVisible: true
   }
 };
