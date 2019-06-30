@@ -1,6 +1,6 @@
 class StrategyPersistence {
-  constructor({ userRepositoryMongo }) {
-    this.userRepositoryMongo = userRepositoryMongo;
+  constructor({ repositoryMongo }) {
+    this.repositoryMongo = repositoryMongo;
   }
 
   orm(orm = '') {
@@ -8,8 +8,8 @@ class StrategyPersistence {
     return this;
   }
 
-  db(db = '') {
-    this.db = db;
+  repository(repo = '') {
+    this.repo = repo;
     return this;
   }
 
@@ -18,10 +18,10 @@ class StrategyPersistence {
     return this;
   }
 
-  async execute(value = {}) {
+  async execute(data = {}) {
     switch (this.orm) {
       case 'mongo':
-        return await this.userRepositoryMongo[this.action](this.db, value);
+        return await this.repositoryMongo[this.repo][this.action](data);
     }
   }
 }

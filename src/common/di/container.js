@@ -19,7 +19,7 @@ const UserSchemaMongo = require('src/infrastructure/persistence/mongo/models/Use
 const ProviderFactoryMongo = require('src/infrastructure/persistence/mongo/ProviderMongoFactory');
 const ProviderConnectionMongo = require('src/infrastructure/persistence/mongo/ProviderConnection');
 const StrategyPersistence = require('src/infrastructure/persistence/StrategyPersistence');
-const UserRepositoryMongo = require('src/infrastructure/persistence/mongo/repositories/UserRepositoryMongo');
+const RepositoryMongo = require('src/infrastructure/persistence/mongo/repositories');
 
 // const database = require('mongo./infrastructure/database');
 
@@ -42,7 +42,7 @@ container
     providerConnectionMongo: asClass(ProviderConnectionMongo),
     providerFactoryMongo: asClass(ProviderFactoryMongo).singleton(),
     userSchemaMongo: asValue(UserSchemaMongo),
-    userRepositoryMongo: asClass(UserRepositoryMongo).singleton()
+    repositoryMongo: asClass(RepositoryMongo).singleton()
     // database: asFunction(database).singleton(),
   })
   .loadModules(

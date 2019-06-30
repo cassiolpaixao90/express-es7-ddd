@@ -1,8 +1,14 @@
 class GetUserService {
-  constructor() {}
+  constructor({ getUserRepository }) {
+    this.getUserRepository = getUserRepository;
+  }
 
-  async execute(data) {
-    return data;
+  async execute(user) {
+    try {
+      return await this.getUserRepository(user);
+    } catch (e) {
+      throw e;
+    }
   }
 }
 

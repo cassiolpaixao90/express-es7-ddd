@@ -1,11 +1,14 @@
-const User = require('src/domain/entities/users/User');
 class CreateUserService {
-  constructor() {}
+  constructor({ createUserRepository }) {
+    this.createUserRepository = createUserRepository;
+  }
 
-  async execute(data) {
+  async execute(user) {
     try {
-      const user = new User(data);
-      return user;
+      if (!user) {
+        throw new Error('err');
+      }
+      await this.createUserRepository(user);
     } catch (e) {
       throw e;
     }

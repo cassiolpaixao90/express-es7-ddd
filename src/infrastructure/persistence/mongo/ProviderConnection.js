@@ -9,29 +9,30 @@ class ProviderConnection {
     this.internalConnectionPool = {};
   }
 
-  start(database, options = {}) {
+  connect() {
+    const database = this.environment.mongo.ddd;
     const opts = Object.assign(
       {},
       {
         useNewUrlParser: true
       },
-      options
+      database.options
     );
 
     return new Promise((resolve, reject) => {
-      if (!this.internalConnectionPool[database]) {
+      if (!this.internalConnectionPool[database.uri]) {
         try {
-          const conn = mongoose.createConnection(database, opts);
+          const conn = mongoose.createConnection(database.uri, opts);
           conn.on('open', () => {
-            this.internalConnectionPool[database] = conn;
-            resolve(this.internalConnectionPool[database]);
+            this.internalConnectionPool[database.uri] = conn;
+            resolve(this.internalConnectionPool[database.uri]);
           });
           conn.on('error', err => console.error('MongoDB error: %s', err));
         } catch (err) {
           reject(err);
         }
       } else {
-        return resolve(this.internalConnectionPool[database]);
+        return resolve(this.internalConnectionPool[database.uri]);
       }
     });
   }

@@ -7,7 +7,7 @@ class DeleteUserRepository {
     try {
       await this.strategyPersistence
         .orm('mongo')
-        .db('ddd')
+        .repository('user')
         .action('delete')
         .execute(data);
     } catch (e) {

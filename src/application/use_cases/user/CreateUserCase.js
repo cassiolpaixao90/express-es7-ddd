@@ -1,13 +1,13 @@
 class CreateUserCase {
-  constructor({ createUserService, createUserRepository }) {
+  constructor({ createUserService, getUserService }) {
     this.createUserService = createUserService;
-    this.createUserRepository = createUserRepository;
+    this.getUserService = getUserService;
   }
 
   async execute(data) {
     try {
-      const user = await this.createUserService.execute(data);
-      await this.createUserRepository.execute(user);
+      const user = await this.getUserService.execute(data);
+      await this.createUserService.execute(user);
     } catch (e) {
       throw e;
     }

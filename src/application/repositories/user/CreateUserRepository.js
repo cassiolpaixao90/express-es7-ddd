@@ -7,7 +7,7 @@ class CreateUserRepository {
     try {
       await this.strategyPersistence
         .orm('mongo')
-        .db('ddd')
+        .repository('user')
         .action('save')
         .execute(data);
     } catch (e) {

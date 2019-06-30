@@ -5,12 +5,9 @@ class ProviderMongoFactory {
     this.userSchemaMongo = userSchemaMongo;
   }
 
-  async getUserModel(db = '') {
+  async getUserModel() {
     try {
-      const conn = await this.providerConnectionMongo.start(
-        this.environment.mongo[db].uri,
-        this.environment.mongo[db].options
-      );
+      const conn = await this.providerConnectionMongo.connect();
       return conn.model('User', this.userSchemaMongo);
     } catch (err) {
       throw err;
