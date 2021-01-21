@@ -46,7 +46,7 @@
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
     "rimraf": "^2.6.2",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.4.0"
   },
   "dependencies": {
     "awilix": "^4.2.1",
